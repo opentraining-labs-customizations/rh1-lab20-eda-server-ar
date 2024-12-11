@@ -122,3 +122,6 @@
       - ansible-navigator
       - molecule
     state: present
+
+- name: Selinux permission 
+  ansible.builtin.shell: setsebool -P zabbix_can_network 1
