@@ -6,6 +6,14 @@
       - policycoreutils 
       - perl
       - postfix
+      - ansible-builder.noarch
+      - ansible-rulebook.noarch
+      - ansible-lint.noarch
+      - socat.x86_64
+      - wireshark.x86_64
+      - tcpdump.x86_64
+      - ansible-navigator
+      - molecule
     state: present
 
 - name: Enable service postfix, and not touch the state
@@ -31,10 +39,6 @@
     owner: root
     group: root
     mode: '0600'
-
-#- name: Sleep for 600 seconds and continue with play
-#  ansible.builtin.wait_for:
-#    timeout: 600    
 
 - name: Run shell gitlab-ctl reconfigure
   ansible.builtin.shell: sudo gitlab-ctl restart
@@ -115,29 +119,15 @@
     - httpd 
     - php-fpm
 
-
 - name: Start service zabbix-agent, if not started
   ansible.builtin.service:
     name: "{{ item }}"
-    state: started
+    state: restarted
   loop:
     - zabbix-server 
     - zabbix-agent 
     - httpd 
     - php-fpm
-
-- name: Install packages
-  ansible.builtin.yum:
-    name: 
-      - ansible-builder.noarch
-      - ansible-rulebook.noarch
-      - ansible-lint.noarch
-      - socat.x86_64
-      - wireshark.x86_64
-      - tcpdump.x86_64
-      - ansible-navigator
-      - molecule
-    state: present
 
 - name: Selinux permission 
   ansible.builtin.shell: setsebool -P zabbix_can_network 1
