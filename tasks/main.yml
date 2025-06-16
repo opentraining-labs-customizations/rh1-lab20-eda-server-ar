@@ -116,7 +116,7 @@
   loop:
     - zabbix-server 
     - zabbix-agent 
-#    - httpd 
+    - httpd 
     - php-fpm
 
 - name: Start service zabbix-agent, if not started
@@ -126,7 +126,7 @@
   loop:
     - zabbix-server 
     - zabbix-agent 
-    - httpd 
+#    - httpd 
     - php-fpm
 
 - name: Selinux permission 
