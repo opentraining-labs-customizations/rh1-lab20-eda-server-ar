@@ -5,6 +5,7 @@
     name: 
       - policycoreutils 
       - perl
+      - httpd
       - postfix
       - ansible-builder.noarch
       - ansible-rulebook.noarch
@@ -126,7 +127,7 @@
   loop:
     - zabbix-server 
     - zabbix-agent 
-#    - httpd 
+    - httpd 
     - php-fpm
 
 - name: Selinux permission 
