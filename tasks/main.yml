@@ -127,7 +127,7 @@
   loop:
     - zabbix-server 
     - zabbix-agent 
-    - httpd 
+#    - httpd 
     - php-fpm
 
 - name: Selinux permission 
