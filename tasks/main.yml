@@ -33,6 +33,14 @@
 - name: Run shell dnf install -y gitlab-ee 
   ansible.builtin.shell: sudo EXTERNAL_URL="https://server.example.com" dnf install -y gitlab-ee
 
+- name: Ensure EXTERNAL_URL is set in /etc/environment for system-wide persistence
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: '^EXTERNAL_URL='
+    line: 'EXTERNAL_URL="https://server.example.com"'
+    state: present
+    create: yes
+        
 - name: Disable port 80
   ansible.builtin.copy:
     src: files/gitlab.rb
@@ -109,7 +117,7 @@
     path: /etc/zabbix/zabbix_server.conf 
     line: DBPassword=password
     insertafter: '^#DBPassword'
-    
+       
 - name: Enable service, and not touch the state
   ansible.builtin.service:
     name: "{{ item }}"
