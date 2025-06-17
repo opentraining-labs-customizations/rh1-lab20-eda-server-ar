@@ -32,15 +32,7 @@
 
 - name: Run shell dnf install -y gitlab-ee 
   ansible.builtin.shell: sudo EXTERNAL_URL="https://server.example.com" dnf install -y gitlab-ee
-
-- name: Ensure EXTERNAL_URL is set in /etc/environment for system-wide persistence
-  ansible.builtin.lineinfile:
-    path: /etc/environment
-    regexp: '^EXTERNAL_URL='
-    line: 'EXTERNAL_URL="https://server.example.com"'
-    state: present
-    create: yes
-        
+       
 - name: Disable port 80
   ansible.builtin.copy:
     src: files/gitlab.rb
@@ -128,10 +120,19 @@
     - httpd 
     - php-fpm
 
-- name: Reboot the target system
-  ansible.builtin.reboot:
-    reboot_timeout: 300 # Adjust as needed (seconds)
-  become: yes # Required for system-level operations
+- name: Enable service, and not touch the state
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted 
+  loop:
+    - zabbix-server 
+    - zabbix-agent 
+    - php-fpm
+
+- name: Reload httpd service
+  ansible.builtin.service:
+    name: httpd
+    state: reloaded
 
 - name: Selinux permission 
   ansible.builtin.shell: setsebool -P zabbix_can_network 1
