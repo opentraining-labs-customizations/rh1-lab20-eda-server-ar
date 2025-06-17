@@ -120,15 +120,10 @@
     - httpd 
     - php-fpm
 
-- name: Start service zabbix-agent, if not started
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: restarted
-  loop:
-    - zabbix-server 
-    - zabbix-agent 
-#    - httpd 
-    - php-fpm
+- name: Reboot the target system
+  ansible.builtin.reboot:
+    reboot_timeout: 300 # Adjust as needed (seconds)
+  become: yes # Required for system-level operations
 
 - name: Selinux permission 
   ansible.builtin.shell: setsebool -P zabbix_can_network 1
