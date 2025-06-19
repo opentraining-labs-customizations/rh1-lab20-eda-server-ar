@@ -42,7 +42,7 @@
     mode: '0600'
 
 - name: Run shell gitlab-ctl reconfigure
-  ansible.builtin.shell: sudo gitlab-ctl restart
+  ansible.builtin.shell: sudo gitlab-ctl reconfigure
 
 - name: Disable port 80
   ansible.builtin.copy:
@@ -129,10 +129,10 @@
     - zabbix-agent 
     - php-fpm
 
-#- name: Reload httpd service
-#  ansible.builtin.service:
-#    name: httpd
-#    state: reloaded
+- name: Reload httpd service
+  ansible.builtin.service:
+    name: httpd
+    state: reloaded
 
 - name: Selinux permission 
   ansible.builtin.shell: setsebool -P zabbix_can_network 1
