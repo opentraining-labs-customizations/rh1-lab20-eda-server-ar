@@ -43,6 +43,8 @@
 
 - name: Run shell gitlab-ctl reconfigure
   ansible.builtin.shell: sudo gitlab-ctl reconfigure
+  args:
+    timeout: 800  
 
 - name: Disable port 80
   ansible.builtin.copy:
