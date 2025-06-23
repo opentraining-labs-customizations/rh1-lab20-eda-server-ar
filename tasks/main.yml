@@ -44,7 +44,9 @@
 - name: Run shell gitlab-ctl reconfigure
   ansible.builtin.shell: sudo gitlab-ctl reconfigure
   args:
-    timeout: 800  
+    chdir: / 
+  async: 800  # Maximum time in seconds to wait for the task to complete
+  poll: 10  
 
 - name: Disable port 80
   ansible.builtin.copy:
