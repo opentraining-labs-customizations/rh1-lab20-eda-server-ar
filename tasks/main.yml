@@ -45,7 +45,7 @@
   ansible.builtin.shell: sudo gitlab-ctl reconfigure
   args:
     chdir: / 
-  async: 800  # Maximum time in seconds to wait for the task to complete
+  async: 900  # Maximum time in seconds to wait for the task to complete
   poll: 10  
 
 - name: Disable port 80
