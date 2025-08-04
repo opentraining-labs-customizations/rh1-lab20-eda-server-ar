@@ -7,9 +7,9 @@
       - perl
       - httpd
       - postfix
-    #  - ansible-builder
-    #  - ansible-rulebook
-    #  - ansible-lint
+      - ansible-builder.noarch
+      - ansible-rulebook.noarch
+      - ansible-lint
       - socat.x86_64
       - wireshark.x86_64
       - tcpdump.x86_64
