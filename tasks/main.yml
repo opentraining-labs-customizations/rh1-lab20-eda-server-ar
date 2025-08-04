@@ -1,20 +1,18 @@
 ---
 # tasks file for server
-- name: Install 
+- name: Install EDA server packages and utilities
   ansible.builtin.yum:
-    name: 
-      - policycoreutils 
+    name:
+      - policycoreutils
       - perl
       - httpd
       - postfix
-    #  - ansible-builder
-    #  - ansible-rulebook
-    #  - ansible-lint
+      - ansible-builder
+      - ansible-rulebook
+      - ansible-lint
       - socat.x86_64
       - wireshark.x86_64
       - tcpdump.x86_64
-      - ansible-navigator
-      - molecule
     state: present
 
 - name: Enable service postfix, and not touch the state
